@@ -7,8 +7,10 @@ import requests
 
 BASE_URL = "https://cdn2.thecatapi.com/v1/images/search"
 
-num = input("how many cat pictures do you want to see? (please enter a number between 1 and 100) ")
+num = input("how many cat pictures do you want to see? (please enter a number between 1 and 10) ")
 
+if num > 10:
+    num = input("please enter a number between 1 and 10: ")
 url = BASE_URL + "?limit=" + str(num)
 
 response = requests.get(url)
