@@ -5,32 +5,49 @@ Kaylee Huang and Lauren Dex
 
 # libraries and variables
 from pip._vendor import requests
+import pickle
+from os import path
 
-all_IDs = []
+def save(object, file):
+    with open(file, "wb") as f:
+        pickle.dump(object, f)
 
-BASE_URL = "https://api.thecatapi.com/v1/images/"
+def load(file):
+    if path.exists(file):
+        with open(file, "rb") as f:
+            return pickle.load(f)
+    return None
 
-# user input
-new_image = input("enter \"n\" to generate a new image or \"o\" to generate the most recent image: ") 
+ID_FILE = "IDS.pkl"
+all_IDS = load(ID_FILE)
+if all_IDS is None:
+    all_IDS = {}
 
-if new_image == "n":
-    url = BASE_URL + "search?limit=1"
-    print(url)
+while True:
+    BASE_URL = "https://api.thecatapi.com/v1/images/"
 
-    response = requests.get(url)
+    id = input("Enter \"n\" to generate a new image, \"o\" to generate the most recent image, or \"q\" to quit: ").capitalize()
+    if id == "Q":
+        break
+    elif id == "O":
+        url = BASE_URL + all_IDs[-1]
+    elif id == "N":
+        url = BASE_URL + "search?limit=1"
+        print(url)
 
-    if response.status_code != 200:
-        print("error: " + str(response.status_code))
+        response = requests.get(url)
+
+        if response.status_code != 200:
+            print("error: " + str(response.status_code))
+            exit()
+        data = response.json()
+        print(data)
+
+        url=data[0]["url"]
+        print(url)
+
+        new_ID = data[0]["id"]
+        all_IDs.append(new_ID)
+        print(all_IDs)
+    else:
         exit()
-    data = response.json()
-    print(data)
-
-    url=data[0]["url"]
-    print(url)
-
-    new_ID = data[0]["id"]
-    all_IDs.append(new_ID)
-    print(all_IDs)
-
-elif new_image == "o":
-    url = BASE_URL + all_IDs[-1]
