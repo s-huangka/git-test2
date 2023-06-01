@@ -8,13 +8,13 @@ from pip._vendor import requests
 
 all_IDs = []
 
-BASE_URL = "https://api.thecatapi.com/v1/images/search"
+BASE_URL = "https://api.thecatapi.com/v1/images/"
 
 # user input
 new_image = input("enter \"n\" to generate a new image or \"o\" to generate the most recent image: ") 
 
 if new_image == "n":
-    url = BASE_URL + "?limit=1"
+    url = BASE_URL + "search?limit=1"
     print(url)
 
     response = requests.get(url)
@@ -33,4 +33,4 @@ if new_image == "n":
     print(all_IDs)
 
 elif new_image == "o":
-    url = BASE_URL
+    url = BASE_URL + all_IDs[-1]
