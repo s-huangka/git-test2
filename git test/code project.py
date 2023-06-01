@@ -6,22 +6,44 @@ Kaylee Huang and Lauren Dex
 # libraries and variables
 from pip._vendor import requests
 
-BASE_URL = "https://cdn2.thecatapi.com/v1/images/search"
+all_IDs = []
+
+BASE_URL = "https://api.thecatapi.com/v1/images/search"
 
 # user input
-num = int(input("how many cat pictures do you want to see? (please enter a number between 1 and 10) "))
+#new_image = input("enter \"n\" to generate a new image: ") == "n"
+"""
+if new_image:
+    url = BASE_URL + "?limit=1"
 
-if num > 10:
-    num = input("please enter a number between 1 and 10: ")
+    response = requests.get(url)
 
-# first API call
-url = BASE_URL + "?limit=" + str(num)
+    if response.status_code != 200:
+        print("error: " + str(response.status_code))
+        exit()
+    data = response.json()
+
+    url=data["url"]
+    print(url)
+    new_ID = data["id"]
+    all_IDs.append(new_ID)
+    print(all_IDs)
+    """
+
+url = BASE_URL + "?limit=1"
+print(url)
 
 response = requests.get(url)
 
 if response.status_code != 200:
     print("error: " + str(response.status_code))
+    exit()
 data = response.json()
+print(data)
 
-url=data["url"]
+url=data[0]["url"]
 print(url)
+
+new_ID = data[0]["id"]
+all_IDs.append(new_ID)
+print(all_IDs)
