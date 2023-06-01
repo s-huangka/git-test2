@@ -3,7 +3,7 @@ Code Your Own Project: (put project idea here)
 Kaylee Huang and Lauren Dex
 """
 
-import requests
+import pip._vendor.requests
 
 BASE_URL = "https://cdn2.thecatapi.com/v1/images/search"
 
