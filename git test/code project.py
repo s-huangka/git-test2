@@ -4,3 +4,5 @@ Kaylee Huang and Lauren Dex
 """
 
 print("hi")
+
+print("hi")
