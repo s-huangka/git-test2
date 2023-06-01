@@ -1,2 +1,2 @@
 Kaylee Huang and Lauren Dex
-Python code-your-own
+Python code-your-own project
