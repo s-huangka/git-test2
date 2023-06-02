@@ -30,8 +30,26 @@ while True:
     id = input("Enter \"n\" to generate a new image, \"o\" to generate the most recent image, or \"q\" to quit: ").capitalize()
     if id == "Q":
         break
-    elif id == "O":
+    
+    elif id == "O" and len(all_IDs) >= 1:
         url = BASE_URL + all_IDs[-1]
+        print(url)
+
+        response = requests.get(url)
+
+        if response.status_code != 200:
+            print("error: " + str(response.status_code))
+            exit()
+        data = response.json()
+        print(data)
+
+        url=data["url"]
+        print(url)
+
+    elif id == "O" and len(all_IDs) < 1:
+        print("you must generate a new image before calling this function")
+        exit()
+        
     elif id == "N":
         url = BASE_URL + "search?limit=1"
         print(url)
@@ -50,5 +68,6 @@ while True:
         new_ID = data[0]["id"]
         all_IDs.append(new_ID)
         print(all_IDs)
+
     else:
         exit()
