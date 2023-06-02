@@ -1,5 +1,5 @@
 """
-Code Your Own Project: (put project idea here)
+Code Your Own Project: Random Cat Images
 Kaylee Huang and Lauren Dex
 """
 
@@ -19,9 +19,9 @@ def load(file):
     return None
 
 ID_FILE = "IDS.pkl"
-all_IDS = load(ID_FILE)
-if all_IDS is None:
-    all_IDS = {}
+all_IDs = load(ID_FILE)
+if all_IDs is None:
+    all_IDs = {}
 
 while True:
     BASE_URL = "https://api.thecatapi.com/v1/images/"
