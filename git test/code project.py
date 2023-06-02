@@ -21,11 +21,12 @@ def load(file):
 ID_FILE = "IDS.pkl"
 all_IDs = load(ID_FILE)
 if all_IDs is None:
-    all_IDs = {}
+    all_IDs = []
 
 while True:
     BASE_URL = "https://api.thecatapi.com/v1/images/"
 
+    print()
     id = input("Enter \"n\" to generate a new image, \"o\" to generate the most recent image, or \"q\" to quit: ").capitalize()
     if id == "Q":
         break
