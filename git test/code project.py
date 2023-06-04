@@ -37,29 +37,49 @@ while True:
     
     # Generate the most recent image
     elif id == "O" and len(all_IDs) >= 1:
-        
+    
         # First API call
         url = BASE_URL + all_IDs[-1]
-
+        
         response = requests.get(url)
 
         if response.status_code != 200:
             print("ERROR: " + str(response.status_code))
             exit()
+
         data = response.json()
-
-        url=data["url"]
-
+        
+        old_id = data["id"]
+        
         # Second API call
+        url = BASE_URL + old_id
+        
         response = requests.get(url)
 
         if response.status_code != 200:
             print("ERROR: " + str(response.status_code))
             exit()
+
         data = response.json()
-        print(data)
+        
+        url = data["url"]
+        print("Ctrl + click this link to view your most recently generated random cat image:", url)
 
+        if "breeds" in data:
+            print("Breed:", data["breeds"][0]["name"])
 
+            if "description" in data["breeds"][0]:   
+                print("Description:", data["breeds"][0]["description"])
+
+            if "origin" in data["breeds"][0]:
+                print("Origin:", data["breeds"][0]["origin"])
+
+            if "temperament" in data["breeds"][0]:
+                print("Temperament:", data["breeds"][0]["temperament"])
+        
+        print()
+        print()
+        print()
 
     # Failure to generate the most recent image
     elif id == "O" and len(all_IDs) < 1:
@@ -78,6 +98,7 @@ while True:
         if response.status_code != 200:
             print("ERROR: " + str(response.status_code))
             exit()
+
         data = response.json()
 
         url = data[0]["url"]
@@ -94,24 +115,27 @@ while True:
         if response.status_code != 200:
             print("ERROR: " + str(response.status_code))
             exit()
+            
         data = response.json()
 
         if "breeds" in data:
             print("Breed:", data["breeds"][0]["name"])
+
             if "description" in data["breeds"][0]:   
                 print("Description:", data["breeds"][0]["description"])
+
             if "origin" in data["breeds"][0]:
                 print("Origin:", data["breeds"][0]["origin"])
+
             if "temperament" in data["breeds"][0]:
                 print("Temperament:", data["breeds"][0]["temperament"])
-        if "width" in data:
-            print("Width:", data["width"])
-
+        
         print()
         print()
         print()
-        print(data)
+       
 
     # User entered invalid input
     else:
+        print("Enter a valid input")
         exit()
